@@ -117,12 +117,25 @@ reveal (a peacock feather, a modak, a trail of lotus petals, the sound of a dama
 
 ### Master style block: paste it at the end of EVERY prompt
 ```
-2D Indian cartoon animation style, soft cel shading, clean bold outlines, warm vibrant colors,
-expressive big eyes, gentle golden lighting, storybook feel, high detail background --ar 9:16 --v 7
+2D hand-drawn TV animation style, flat cel shading with hard-edged two-tone shadows, thin slightly
+sketchy ink lines of varying weight, limited warm palette, strong backlight with soft bloom and rim
+light, hazy golden sky gradient, simple painted background, cinematic framing --ar 9:16 --v 7
 ```
-- Use `--ar 16:9` instead of `--ar 9:16` for long-form/YouTube versions.
+- Use `--ar 16:9` instead of `--ar 9:16` for long-form/YouTube versions. **Never leave out `--ar`**:
+  clips without it come out 3:4 and do not fit Shorts.
 - Once you have an image whose look you love, save its **style reference code** here and add
-  `--sref <code>` to every prompt: **`--sref` TBD**.
+  `--sref <code>` to every prompt: **`--sref` TBD**. Only use our own generated images as `--sref`,
+  never frames from other creators' videos.
+
+### What the look is (from reference analysis)
+The target look comes from a hand-animated devotional Short ("His Presence", Hanuman). Describe it in
+words, do not copy that artist's frames.
+- **Shading:** flat colour with ONE shadow tone per colour and a hard edge (no soft gradients on characters).
+- **Lines:** thin, slightly sketchy ink, varying weight, fold lines left open. Hand-drawn, not vector-perfect.
+- **Light:** strong backlight (sun or divine glow behind the subject), soft bloom wrapping the edges,
+  hazy sky fading to white. Use this especially for deity arrivals.
+- **Palette:** about 5 main colours per shot, warm and limited.
+- **Framing:** low angles give characters presence; simple painted backgrounds with atmospheric haze.
 
 ### Character reference images (`--oref`)
 Generate each character once, choose the best image, and paste its URL here. Then use
@@ -151,37 +164,46 @@ Generate each character once, choose the best image, and paste its URL here. The
 character design sheet of Raghu, a 10 year old thin Indian boy, medium-brown skin, big expressive
 dark eyes, messy black hair, small gap in front teeth, faded blue school shirt, khaki shorts,
 black thread on right wrist, patched school bag, front view, side view, happy, scared, crying
-expressions, white background, 2D Indian cartoon animation style, soft cel shading, clean bold
-outlines, warm vibrant colors --ar 16:9 --v 7
+expressions, white background, 2D hand-drawn TV animation style, flat cel shading with hard-edged two-tone shadows, thin slightly sketchy ink lines, limited warm palette --ar 16:9 --v 7
 ```
 **Ganesha**
 ```
 character design of Lord Ganesha, divine and gentle, elephant head with broken right tusk, four
 arms, one hand holding a modak, one in blessing pose, red and yellow silk dhoti, golden crown and
 jewellery, small mouse Mooshika at his feet, soft divine golden glow, front view, white background,
-2D Indian cartoon animation style, soft cel shading, clean bold outlines, warm vibrant colors,
+2D hand-drawn TV animation style, flat cel shading with hard-edged two-tone shadows, thin slightly sketchy ink lines, limited warm palette,
 reverent --ar 16:9 --v 7
 ```
 **Krishna**
 ```
 character design of Lord Krishna as a young cowherd, blue skin, peacock feather in golden crown,
 playing a bamboo flute, yellow silk dhoti, flower garland, kind playful smile, soft divine glow,
-front view, white background, 2D Indian cartoon animation style, soft cel shading, clean bold
-outlines, warm vibrant colors, reverent --ar 16:9 --v 7
+front view, white background, 2D hand-drawn TV animation style, flat cel shading with hard-edged two-tone shadows, thin slightly sketchy ink lines, limited warm palette, reverent --ar 16:9 --v 7
 ```
 **Hanuman**
 ```
 character design of Lord Hanuman, divine strong monkey god, kind devoted face, saffron orange
 complexion, golden crown, holding a golden gada mace, red loincloth, muscular but gentle, soft
-divine glow, front view, white background, 2D Indian cartoon animation style, soft cel shading,
-clean bold outlines, warm vibrant colors, reverent --ar 16:9 --v 7
+divine glow, front view, white background, 2D hand-drawn TV animation style, flat cel shading with hard-edged two-tone shadows, thin slightly sketchy ink lines, limited warm palette, reverent --ar 16:9 --v 7
 ```
 Use the same pattern for the other characters, taking descriptions from sections 3 and 4.
 
 ### Video (Midjourney animate)
-For every shot, write a short **motion prompt**: one clear action + one camera move
-(e.g. "Raghu wipes his tears and looks up, slow camera push-in"). Keep it simple, because one
-action per clip gives the most stable results.
+AI video looks fake when every pixel shifts every frame (lines "shimmer" and faces warp). Hand-animated
+work feels natural because **the camera and background move while the character stays mostly still**.
+So for every shot:
+1. Use **Low motion** in Midjourney animate.
+2. Write a short **motion prompt**: one camera move + one small background/secondary motion, with the
+   character holding mostly still. Example: "slow camera tilt up, birds fly across the sky, Raghu stays
+   still, hair moves slightly in the wind".
+   - ✅ Camera moves (push-in, tilt, pan), parallax, birds, petals, dust in light, cloth/hair in wind.
+   - ❌ Facial acting in AI video ("blinks and looks scared, lips tremble"): it warps.
+3. **Choose AI-safe shots:** backs, silhouettes, medium-wide shots, hands, objects, environments.
+   **Face close-ups are stills**: use the image with a slow zoom in CapCut instead of animating it.
+4. **Post-process every clip to 12 fps** to get the hand-animated look and hide shimmer:
+   `ffmpeg -i shotXX.mp4 -vf "fps=12" -c:a copy shotXX_12fps.mp4`
+5. **Add life in CapCut:** floating particles/petals, light leaks and glow, slight foreground/background
+   parallax.
 
 ---
 
