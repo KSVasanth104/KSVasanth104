@@ -1,0 +1,5 @@
+node_modules/
+out/*
+!out/diwali-mom.mp4
+!out/scene1.mp4
+.DS_Store

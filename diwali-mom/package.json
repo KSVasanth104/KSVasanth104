@@ -1,0 +1,26 @@
+{
+  "name": "diwali-mom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Diwali Mom: a 38-second vertical animated short built with Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render DiwaliMom out/diwali-mom.mp4",
+    "render:scene1": "remotion render Scene1Preview out/scene1.mp4",
+    "still": "remotion still DiwaliMom out/still.png --frame=60",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/baloo-2": "^5.3.0",
+    "@remotion/cli": "^4.0.541",
+    "@remotion/fonts": "^4.0.541",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.541"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
