@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Audio, continueRender, delayRender, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, continueRender, delayRender, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {loadFont} from '@remotion/fonts';
 import {FONT_FAMILY, mixPalette, VIDEO} from './theme';
 import {BLACKOUT, CAPTIONS, END_CARD, SCENES, WARM_SWITCH} from './timeline';
-import {MUSIC_FILE, MUSIC_VOLUME} from './audio';
 import {MoodProvider, SceneSlot} from './lib/context';
 import {keys} from './lib/anim';
 import {Captions} from './components/Captions';
+import {Soundtrack} from './components/Soundtrack';
 import {EndCard} from './components/EndCard';
 import {Dust, GradeOverlay, Grain, Vignette, gradeFilter} from './components/Atmosphere';
 import {Scene1} from './scenes/Scene1';
@@ -82,8 +82,8 @@ export const DiwaliMom: React.FC = () => {
         )}
         <Captions cues={CAPTIONS} frame={frame} warmth={warmth} />
 
-        {/* ----- placeholder audio slot (see src/audio.ts) ----- */}
-        {MUSIC_FILE && <Audio src={staticFile(MUSIC_FILE)} volume={MUSIC_VOLUME} />}
+        {/* ----- Tamil voice-over, South Indian score, SFX (cue sheet: src/audio.ts) ----- */}
+        <Soundtrack />
       </AbsoluteFill>
     </MoodProvider>
   );

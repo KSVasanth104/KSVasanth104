@@ -1,7 +1,8 @@
 # Diwali Mom
 
-A 42-second vertical (1080x1920, 30 fps) animated short built with [Remotion](https://www.remotion.dev/)
-and hand-built SVG characters: a 38 s story plus a 4 s "Happy Diwali" end card.
+A 48-second vertical (1080x1920, 30 fps) animated short built with [Remotion](https://www.remotion.dev/)
+and hand-built SVG characters: a 38 s story plus a 10 s "Happy Diwali" end card, with a Tamil
+voice-over, a South Indian score and sound effects.
 The finished render is at `out/diwali-mom.mp4`.
 
 ## Preview and render
@@ -33,7 +34,7 @@ In Studio there are three compositions: **DiwaliMom** (the film), **Scene1Previe
 src/
   theme.ts            colours: COLD and WARM environment palettes (same keys) + character colours + grade
   timeline.ts         scene start/end frames, dissolves, captions, palette switch, end fade
-  audio.ts            placeholder music slot (null = silent render)
+  audio.ts            soundtrack cue sheet: Tamil voice lines, music cues, SFX, ducking
   DiwaliMom.tsx       main composition: scenes, colour grade, dust, vignette, grain, captions
   characters/
     Mom.tsx  Son.tsx  rigged characters (one reusable component each)
@@ -43,7 +44,7 @@ src/
     Arm.tsx           upper-arm → forearm → hand groups with 2-bone IK (or explicit elbow)
     Face.tsx          eyes (blink, look, squint, sparkle, tears), brows, morphing mouth
     HandProp.tsx      spoon, ladle, puri, laddoo
-  components/         Camera/Stage, Diya (flickering flame + glow), Atmosphere, Captions, EndCard
+  components/         Camera/Stage, Diya (flickering flame + glow), Atmosphere, Captions, EndCard, Soundtrack
   sets/               DiningRoom, BedroomTopDown, Doorway, Kitchen, BedroomFront, Props
   scenes/             Scene1.tsx … Scene8.tsx (one component per scene)
 ```
@@ -68,10 +69,37 @@ src/
 - **Captions** are large, bold and centred in the top third (y 250–650) with 90 px side margins,
   clear of the Shorts UI. Edit the text and timing in `timeline.ts`; `\n` forces a line break.
 
-## Adding music
+## Soundtrack (Tamil)
 
-The render is silent on purpose (music goes on in CapCut). To bake a track in, put it in
-`public/audio/` and set `MUSIC_FILE = 'audio/your-track.mp3'` in `src/audio.ts`.
+All audio was generated with ElevenLabs and lives in `public/audio/`:
+
+| Folder | Contents |
+|---|---|
+| `raw/` | Every original take as downloaded (two takes per voice line) |
+| `vo/` | Chosen voice lines, compressed and normalised to about -16 LUFS |
+| `music/` | Three score cues: **A** lonely veena + tanpura (0–13 s), **B** festive nadaswaram + thavil from the moment the door opens (12–27 s), **C** tender bansuri + veena to the end (26–48 s) |
+| `sfx/` | Wall clock + crickets (scenes 1–3), doorbell (11 s), distant Diwali crackers (13–33 s) |
+
+Voices: narrator **Vennila – Calm & Engaging Storyteller**, son **Muthu – Romantic, Warm & Shy** (`eleven_v4`).
+Music: `eleven_music_v2_5`. SFX: `eleven_text_to_sound_v2`.
+
+| Time | Speaker | Tamil | Meaning |
+|---|---|---|---|
+| 0.4 s | Narrator | ஒவ்வொரு ராத்திரியும்… அதே அமைதி. | Every night… the same quiet. |
+| 3.6 s | Narrator | சமைச்சுப் போட… யாருமே இல்ல. | No one… to cook for. |
+| 12.5 s | Son | அம்மா! | Amma! |
+| 13.9 s | Narrator | தீபாவளி. | Deepavali. |
+| 21.9 s | Narrator | அதே சமையலறை… ஆனா ருசி வேற. | Same kitchen… but a different taste. |
+| 28.8 s | Narrator | அவங்க தரையில தூங்கினாங்க… சிரிச்சுக்கிட்டே. | She slept on the floor… smiling. |
+| 35.4 s | Narrator | அம்மா சமைக்கிறது ருசிக்காக இல்ல… உனக்காக. | A mother doesn't cook for taste… she cooks for you. |
+| 39.0 s | Narrator | இனிய தீபாவளி நல்வாழ்த்துகள். இந்த வருஷம்… வீட்டுக்குப் போங்க. வாசல்லயே ஒருத்தங்க காத்துக்கிட்டு இருக்காங்க. | Happy Deepavali. This year… go home. Someone is waiting right at the door. |
+
+**Changing the mix:** timings, volumes and fade envelopes are in `src/audio.ts`; the music ducks
+automatically under every voice line (`DUCK`). To swap a take, change the mapping at the top of
+`scripts/prepare-audio.sh` and run it (needs ffmpeg), then re-render.
+
+**Licence note:** the ElevenLabs free plan is non-commercial and requires attribution
+("Voice and music generated with ElevenLabs"). Upgrade before monetising the video.
 
 ## Scene timing
 
@@ -85,4 +113,4 @@ The render is silent on purpose (music goes on in CapCut). To bake a track in, p
 | 6 | 21–26 s | 630–779 | Eating together. *"Same kitchen. Different taste."* |
 | 7 | 26–32 s | 780–959 | She makes the bed for him, unrolls a mat, lies down. *"She slept on the floor. And smiled."* |
 | 8 | 32–38 s | 960–1139 | Pull-back to the son asleep in her bed, fade to black. *"Mothers don't cook for taste. They cook for you."* |
-| End | 38–42 s | 1140–1259 | A diya lights in the dark. **Happy Diwali** · *"Go home this year. Someone has been waiting by the door."* (edit in `END_CARD`, `timeline.ts`) |
+| End | 38–48 s | 1140–1439 | A diya lights in the dark. **Happy Diwali** · *"Go home this year. Someone has been waiting by the door."* (edit in `END_CARD`, `timeline.ts`) |

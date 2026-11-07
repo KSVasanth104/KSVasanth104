@@ -47,15 +47,16 @@ export const CAPTIONS: CaptionCue[] = [
 ];
 
 /**
- * Closing card after the film (38-42 s): a diya lights up, then the greeting and a
+ * Closing card after the film (38-48 s): a diya lights up, then the greeting and a
  * line that calls back to the doorbell in scene 4. `reveal` frames are relative
  * to the card's start.
  */
 export const END_CARD = {
   start: 1140,
-  end: 1260,
+  end: 1440,
   greeting: 'Happy Diwali',
   line1: 'Go home this year.',
   line2: 'Someone has been\nwaiting by the door.',
-  reveal: {greeting: 16, line1: 44, line2: 64},
+  // synced to the Tamil end-card voice line (src/audio.ts, starts 30 frames into the card)
+  reveal: {greeting: 34, line1: 118, line2: 197},
 };

@@ -14,7 +14,7 @@ export const VIDEO = {
   width: 1080,
   height: 1920,
   fps: 30,
-  durationInFrames: 1260, // 42 s: 38 s story + 4 s Happy Diwali end card
+  durationInFrames: 1440, // 48 s: 38 s story + 10 s Happy Diwali end card (timed to the Tamil voice-over)
 } as const;
 
 export const COLD = {

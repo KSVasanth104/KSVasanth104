@@ -2,7 +2,7 @@
   "name": "diwali-mom",
   "version": "1.0.0",
   "private": true,
-  "description": "Diwali Mom: a 42-second vertical animated short built with Remotion",
+  "description": "Diwali Mom: a 48-second vertical animated short built with Remotion",
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render DiwaliMom out/diwali-mom.mp4",
