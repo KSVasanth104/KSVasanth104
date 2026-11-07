@@ -23,6 +23,13 @@ export const Doorway: React.FC<{
   p: Palette;
   frame: number;
   warmth: number;
+  /**
+   * How festive the world OUTSIDE the door is (default: same as warmth). It is Diwali
+   * out there all along, so scene 4 passes 1: opening the door lets the warmth in.
+   */
+  outsideWarmth?: number;
+  /** Palette for the outside view (default: p). */
+  pOut?: Palette;
   /** 0 closed → 1 swung open. */
   open: number;
   /** 0..1: rings around the doorbell. */
@@ -30,7 +37,9 @@ export const Doorway: React.FC<{
   outside?: React.ReactNode;
   inside?: React.ReactNode;
   id: string;
-}> = ({p, frame, warmth, open, ring, outside, inside, id}) => {
+}> = ({p, frame, warmth, outsideWarmth, pOut, open, ring, outside, inside, id}) => {
+  const ow = outsideWarmth ?? warmth;
+  const po = pOut ?? p;
   const {x1, x2, top, sill} = DOOR;
   const edge = x1 + (x2 - 45 - x1) * open;
   const k = open * 80;
@@ -43,8 +52,8 @@ export const Doorway: React.FC<{
           <stop offset="100%" stopColor={p.wallBottom} />
         </linearGradient>
         <linearGradient id={`${id}-out`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={p.sky} />
-          <stop offset="100%" stopColor={p.skyLow} />
+          <stop offset="0%" stopColor={po.sky} />
+          <stop offset="100%" stopColor={po.skyLow} />
         </linearGradient>
         <clipPath id={`${id}-opening`}>
           <rect x={x1} y={top} width={x2 - x1} height={sill - top} />
@@ -57,7 +66,7 @@ export const Doorway: React.FC<{
       {/* ---- outside, seen through the opening ---- */}
       <g clipPath={`url(#${id}-opening)`}>
         <rect x={x1} y={top} width={x2 - x1} height={sill - top} fill={`url(#${id}-out)`} />
-        <g opacity={warmth}>
+        <g opacity={ow}>
           <Fireworks frame={frame} x={x1} y={top} w={x2 - x1} h={300} seed={3} />
         </g>
         {/* neighbouring houses */}
@@ -72,17 +81,17 @@ export const Doorway: React.FC<{
           [680, 1150],
           [790, 1260],
         ].map(([wx, wy], i) => (
-          <rect key={i} x={wx} y={wy} width={34} height={40} rx={4} fill={FESTIVE.flameOuter} opacity={0.15 + warmth * 0.75} />
+          <rect key={i} x={wx} y={wy} width={34} height={40} rx={4} fill={FESTIVE.flameOuter} opacity={0.15 + ow * 0.75} />
         ))}
-        <FairyLights x1={x1} x2={x2} y={1190} sag={40} frame={frame} count={10} opacity={warmth} />
+        <FairyLights x1={x1} x2={x2} y={1190} sag={40} frame={frame} count={10} opacity={ow} />
         {/* doorstep */}
-        <rect x={x1} y={1420} width={x2 - x1} height={140} fill={p.floorFar} />
-        <rect x={x1} y={1420} width={x2 - x1} height={10} fill={p.floorLine} opacity={0.5} />
-        <g opacity={0.25 + warmth * 0.75}>
+        <rect x={x1} y={1420} width={x2 - x1} height={140} fill={po.floorFar} />
+        <rect x={x1} y={1420} width={x2 - x1} height={10} fill={po.floorLine} opacity={0.5} />
+        <g opacity={0.25 + ow * 0.75}>
           <Rangoli x={(x1 + x2) / 2} y={1505} s={0.9} />
         </g>
-        <Diya x={482} y={1540} scale={0.5} frame={frame} seed={21} lit={keys(warmth, [0.1, 0.5], [0, 1])} id={`${id}-ds1`} />
-        <Diya x={808} y={1540} scale={0.5} frame={frame} seed={23} lit={keys(warmth, [0.25, 0.65], [0, 1])} id={`${id}-ds2`} />
+        <Diya x={482} y={1540} scale={0.5} frame={frame} seed={21} lit={keys(ow, [0.1, 0.5], [0, 1])} id={`${id}-ds1`} />
+        <Diya x={808} y={1540} scale={0.5} frame={frame} seed={23} lit={keys(ow, [0.25, 0.65], [0, 1])} id={`${id}-ds2`} />
         {outside}
       </g>
 
@@ -161,12 +170,8 @@ export const Doorway: React.FC<{
       {[1640, 1760, 1930].map((yy) => (
         <line key={yy} x1={-300} y1={yy} x2={1380} y2={yy} stroke={p.floorLine} strokeWidth={3} opacity={0.5} />
       ))}
-      <path
-        d={`M ${x1} ${sill} L ${edge} ${sill} L ${edge + 220} 2100 L ${x1 - 260} 2100 Z`}
-        fill={p.light}
-        opacity={open * warmth * 0.32}
-      />
-      <Glow x={(x1 + x2) / 2} y={1200} r={700} color={p.lightSoft} opacity={open * warmth * 0.35} id={`${id}-spill`} />
+      <path d={`M ${x1} ${sill} L ${edge} ${sill} L ${edge + 220} 2100 L ${x1 - 260} 2100 Z`} fill={po.light} opacity={open * ow * 0.32} />
+      <Glow x={(x1 + x2) / 2} y={1200} r={700} color={po.lightSoft} opacity={open * ow * 0.35} id={`${id}-spill`} />
 
       {inside}
     </g>

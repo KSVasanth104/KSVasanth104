@@ -1,5 +1,6 @@
 // Scene 3c - Tears (15-17 s): back in the dark bedroom, close on Mom's face.
-// A tear rolls down as the memory fades; she closes her eyes. Then the doorbell.
+// A tear rolls down as the memory fades; she closes her eyes... and the doorbell
+// rings. Her eyes snap open: who would come at this hour? (This motivates scene 4.)
 import React from 'react';
 import {Mom} from '../characters/Mom';
 import {Stage} from '../components/Camera';
@@ -13,8 +14,9 @@ export const SceneTears: React.FC = () => {
   const {palette: p, globalFrame: frame} = useMood();
   const c = keys(f, [-15, 60], [0, 1]);
   const camera = {zoom: lerp(2.05, 2.25, c), x: 742, y: lerp(600, 592, c)};
-  const close = keys(f, [34, 50], [1, 0.05]);
-  const sob = Math.max(0, Math.sin(f * 0.5)) * keys(f, [10, 30, 50], [0, 1, 0.3]);
+  const close = keys(f, [24, 36, 45, 50], [1, 0.05, 0.05, 1.15]);
+  const startle = keys(f, [44, 50], [0, 1]);
+  const sob = Math.max(0, Math.sin(f * 0.5)) * keys(f, [10, 28, 44, 46], [0, 1, 0.4, 0]);
 
   return (
     <Stage camera={camera}>
@@ -34,13 +36,15 @@ export const SceneTears: React.FC = () => {
             pose="lie"
             seed={4}
             breathe={1.4}
-            headTilt={-3}
-            headBob={sob * 1.5}
+            headTilt={-3 - startle * 4}
+            headTurn={-startle * 0.3}
+            headBob={sob * 1.5 - startle * 4}
             face={{
-              look: {x: 0.2, y: -0.3},
-              sad: 1,
-              smile: -0.45,
-              open: sob * 0.12,
+              look: {x: lerp(0.2, -0.9, startle), y: -0.3},
+              sad: lerp(1, 0.45, startle),
+              brow: startle * 0.9,
+              smile: lerp(-0.45, -0.1, startle),
+              open: sob * 0.12 + startle * 0.12,
               eyeOpen: 0.78 * close,
               closedStyle: 'sleep',
               noBlink: true,

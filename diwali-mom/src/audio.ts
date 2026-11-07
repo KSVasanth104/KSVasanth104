@@ -48,7 +48,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/03_son_amma.mp3',
-    from: 556,
+    from: 602,
     length: 47,
     volume: 1,
     speaker: 'Son (Muthu)',
@@ -57,7 +57,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/04_deepavali.mp3',
-    from: 598,
+    from: 666,
     length: 44,
     volume: 1.1,
     speaker: 'Narrator (Vennila)',
@@ -66,7 +66,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/05_same_kitchen.mp3',
-    from: 837,
+    from: 897,
     length: 104,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -75,7 +75,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/06_slept_on_floor.mp3',
-    from: 1044,
+    from: 1104,
     length: 114,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -84,7 +84,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/07_mothers_cook_for_you.mp3',
-    from: 1242,
+    from: 1302,
     length: 114,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -93,7 +93,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/08_happy_deepavali.mp3',
-    from: 1350,
+    from: 1410,
     length: 246,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -144,30 +144,49 @@ export const MUSIC: BedCue[] = [
     file: 'audio/music/a_lonely_veena.mp3',
     from: 446,
     trimBefore: 165,
+    // cut by the first doorbell ring (494) so it lands in silence
     envelope: [
       [0, 0],
       [14, 0.9],
-      [48, 0.9],
-      [62, 0],
+      [40, 0.9],
+      [48, 0],
+    ],
+    duck: true,
+  },
+  // B is played twice in sync: muffled (heard through the closed door) and clear.
+  // As the door opens the muffled copy fades out and the clear one fades in, but it
+  // stays soft through her disbelief and tears and only swells when she smiles.
+  {
+    label: 'B (through the door) - festival outside, muffled',
+    file: 'audio/music/b_festive_through_door.mp3',
+    from: 540,
+    envelope: [
+      [0, 0],
+      [20, 0.45],
+      [38, 0.45],
+      [60, 0],
     ],
     duck: true,
   },
   {
     label: 'B - festive nadaswaram + thavil (door opens → eating together)',
     file: 'audio/music/b_festive_nadaswaram.mp3',
-    from: 549,
+    from: 540,
     envelope: [
       [0, 0],
-      [8, 0.58],
-      [420, 0.58],
-      [456, 0],
+      [24, 0],
+      [50, 0.22],
+      [96, 0.22],
+      [122, 0.6],
+      [448, 0.6],
+      [480, 0],
     ],
     duck: true,
   },
   {
     label: 'C - tender flute + veena (bed, floor, end card)',
     file: 'audio/music/c_tender_flute.mp3',
-    from: 960,
+    from: 1020,
     envelope: [
       [0, 0],
       [30, 0.46],
@@ -202,18 +221,20 @@ export const SFX: BedCue[] = [
     label: 'quiet night returns for the tears',
     file: 'audio/sfx/night_clock_crickets.mp3',
     from: 440,
+    // the clock keeps ticking while she walks to the door, then the festival takes over
     envelope: [
       [0, 0],
       [20, 0.35],
-      [70, 0.35],
-      [100, 0],
+      [140, 0.35],
+      [165, 0],
     ],
   },
-  {label: 'doorbell', file: 'audio/sfx/doorbell.mp3', from: 510, envelope: [[0, 0.9]]},
+  {label: 'doorbell (1st ring, she is still in bed)', file: 'audio/sfx/doorbell.mp3', from: 494, envelope: [[0, 0.9]]},
+  {label: 'doorbell (2nd ring, she walks to the door)', file: 'audio/sfx/doorbell.mp3', from: 514, envelope: [[0, 0.8]]},
   {
     label: 'distant Diwali crackers',
     file: 'audio/sfx/distant_crackers.mp3',
-    from: 580,
+    from: 566,
     envelope: [
       [0, 0],
       [30, 0.28],

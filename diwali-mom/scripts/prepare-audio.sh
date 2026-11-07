@@ -27,6 +27,8 @@ ffmpeg -loglevel error -y -i raw/musicB.mp3 -af "volume=-1dB,alimiter=limit=0.89
 ffmpeg -loglevel error -y -i raw/musicC.mp3 -af "volume=-1dB,alimiter=limit=0.89" "${enc[@]}" music/c_tender_flute.mp3
 # the flashback hears the festive cue as a distant, muffled memory
 ffmpeg -loglevel error -y -i raw/musicB.mp3 -af "atrim=0:6.5,lowpass=f=1400,aecho=0.8:0.75:70|140:0.35|0.22,volume=3dB,afade=t=in:d=0.6,afade=t=out:st=5.6:d=0.9,alimiter=limit=0.89" "${enc[@]}" music/memory_festive_muffled.mp3
+# the same festive cue heard through the closed door (crossfaded to the clear one as it opens)
+ffmpeg -loglevel error -y -i raw/musicB.mp3 -af "lowpass=f=700,lowpass=f=900,volume=4dB,alimiter=limit=0.89" "${enc[@]}" music/b_festive_through_door.mp3
 ffmpeg -loglevel error -y -i raw/memory_sfx.mp3 -af "lowpass=f=6500,aecho=0.8:0.6:50:0.25,volume=-1dB,alimiter=limit=0.89" "${enc[@]}" sfx/memory_sparklers_laughter.mp3
 ffmpeg -loglevel error -y -i raw/doorbell.mp3 -af "volume=-2dB" "${enc[@]}" sfx/doorbell.mp3
 ffmpeg -loglevel error -y -i raw/night.mp3 -af "volume=6dB" "${enc[@]}" sfx/night_clock_crickets.mp3
