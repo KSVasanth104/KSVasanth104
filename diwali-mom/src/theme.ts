@@ -14,7 +14,7 @@ export const VIDEO = {
   width: 1080,
   height: 1920,
   fps: 30,
-  durationInFrames: 1440, // 48 s: 38 s story + 10 s Happy Diwali end card (timed to the Tamil voice-over)
+  durationInFrames: 1620, // 54 s: 44 s story (incl. the memory) + 10 s Happy Diwali end card
 } as const;
 
 export const COLD = {
@@ -145,6 +145,23 @@ export const CHARACTERS = {
     eye: '#221917',
     earring: '#d9dce2',
   },
+  /** Mom in the flashback, ~25 years younger: black hair, green silk saree, red blouse. */
+  momYoung: {
+    skin: '#bf8561',
+    skinShade: '#a0694c',
+    blush: '#de7d6a',
+    hair: '#1f1a1d',
+    hairLight: '#3b3237',
+    saree: '#2f8f6a',
+    sareeShade: '#23704f',
+    sareeBorder: '#e2b14b',
+    blouse: '#b8322f',
+    bindi: '#c4162b',
+    mouth: '#4a1e1c',
+    tongue: '#c75f5a',
+    eye: '#221917',
+    earring: '#f2c14e',
+  },
   son: {
     skin: '#b67a55',
     skinShade: '#935c3e',
@@ -162,6 +179,38 @@ export const CHARACTERS = {
     bagLight: '#45547a',
     mouth: '#3e1816',
     tongue: '#c25e58',
+    eye: '#1d1514',
+  },
+  /** Mom's late husband (in the flashback): cream silk shirt, white veshti with gold border. */
+  dad: {
+    skin: '#a86e4c',
+    skinShade: '#8a573a',
+    blush: '#c8735e',
+    hair: '#18141a',
+    hairLight: '#3a3238',
+    shirt: '#f0e2c0',
+    shirtShade: '#d8c59c',
+    veshti: '#fbf7ee',
+    veshtiShade: '#e4dccb',
+    border: '#d9a93e',
+    mouth: '#3e1816',
+    tongue: '#c25e58',
+    eye: '#1d1514',
+  },
+  /** The son as a ~7-year-old boy in the flashback. */
+  kid: {
+    skin: '#ba7f58',
+    skinShade: '#99623f',
+    blush: '#d97d68',
+    hair: '#16121a',
+    hairLight: '#3a3238',
+    kurta: '#f2b130',
+    kurtaShade: '#d38f17',
+    kurtaTrim: '#c0392b',
+    pants: '#fbf3e3',
+    pantsShade: '#e3d6bd',
+    mouth: '#3e1816',
+    tongue: '#d0645c',
     eye: '#1d1514',
   },
 };

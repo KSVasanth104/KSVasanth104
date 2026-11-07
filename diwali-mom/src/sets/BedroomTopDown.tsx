@@ -88,8 +88,14 @@ export const BedroomTopDown: React.FC<{
         <rect x={bed.x} y={bed.y} width={bed.w} height={bed.h} rx={20} fill={p.woodDark} />
         <rect x={bed.x} y={bed.y} width={bed.w} height={60} rx={18} fill={p.wood} />
         <rect x={bed.x + 18} y={bed.y + 62} width={bed.w - 36} height={bed.h - 80} rx={14} fill={p.sheet} />
-        <ellipse cx={TOPDOWN.pillow.x} cy={TOPDOWN.pillow.y} rx={170} ry={72} fill={p.sheetShade} />
-        <ellipse cx={TOPDOWN.pillow.x} cy={TOPDOWN.pillow.y - 6} rx={160} ry={64} fill={p.sheet} />
+        <ellipse cx={TOPDOWN.pillow.x} cy={TOPDOWN.pillow.y - 4} rx={160} ry={64} fill={p.food} opacity={0.85} />
+        <path
+          d={`M ${TOPDOWN.pillow.x - 120} ${TOPDOWN.pillow.y + 34} Q ${TOPDOWN.pillow.x} ${TOPDOWN.pillow.y + 52} ${TOPDOWN.pillow.x + 120} ${TOPDOWN.pillow.y + 34}`}
+          stroke={p.sheetShade}
+          strokeWidth={6}
+          fill="none"
+          opacity={0.6}
+        />
         {bedOccupant}
         <g transform={`translate(0 ${760}) scale(1 ${1 + breathBed * 0.006}) translate(0 ${-760})`}>
           <path
@@ -148,8 +154,7 @@ export const BedroomTopDown: React.FC<{
             strokeWidth={8}
             opacity={0.7}
           />
-          <ellipse cx={TOPDOWN.matPillow.x} cy={TOPDOWN.matPillow.y} rx={120} ry={52} fill={p.sheetShade} />
-          <ellipse cx={TOPDOWN.matPillow.x} cy={TOPDOWN.matPillow.y - 4} rx={112} ry={46} fill={p.sheet} />
+          <ellipse cx={TOPDOWN.matPillow.x} cy={TOPDOWN.matPillow.y - 4} rx={112} ry={46} fill={p.food} opacity={0.9} />
           {matOccupant}
           <g transform={`translate(0 940) scale(1 ${1 + breathMat * 0.007}) translate(0 -940)`}>
             <path

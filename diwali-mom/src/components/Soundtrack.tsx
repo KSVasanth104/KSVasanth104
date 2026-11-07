@@ -31,6 +31,7 @@ const Bed: React.FC<{cue: BedCue}> = ({cue}) => (
   <Sequence name={`♪ ${cue.label}`} from={cue.from} layout="none">
     <Audio
       src={staticFile(cue.file)}
+      trimBefore={cue.trimBefore}
       volume={(f) => envelopeAt(cue.envelope, f) * (cue.duck ? duckAt(cue.from + f) : 1)}
     />
   </Sequence>
@@ -40,10 +41,10 @@ const Bed: React.FC<{cue: BedCue}> = ({cue}) => (
 export const Soundtrack: React.FC = () => (
   <>
     {MUSIC.map((c) => (
-      <Bed key={c.file} cue={c} />
+      <Bed key={c.label} cue={c} />
     ))}
     {SFX.map((c) => (
-      <Bed key={c.file} cue={c} />
+      <Bed key={c.label} cue={c} />
     ))}
     {VOICE.map((v) => (
       <Sequence key={v.file} name={`🎙 ${v.english}`} from={v.from} layout="none">

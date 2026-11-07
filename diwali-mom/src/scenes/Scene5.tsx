@@ -159,7 +159,7 @@ const ShotTable: React.FC<{l: number; frame: number; p: Palette; clock: number}>
 export const Scene5: React.FC = () => {
   const f = useSceneFrame();
   const {palette: p, globalFrame} = useMood();
-  const frame = f + 450;
+  const frame = globalFrame;
   return (
     <>
       <Shot f={f} start={0} end={45} fadeIn={0}>

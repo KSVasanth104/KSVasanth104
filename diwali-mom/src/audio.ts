@@ -38,8 +38,17 @@ export const VOICE: VoiceLine[] = [
     english: 'No one… to cook for.',
   },
   {
+    file: 'audio/vo/02b_memory_laughter.mp3',
+    from: 330,
+    length: 108,
+    volume: 1,
+    speaker: 'Narrator (Vennila)',
+    tamil: 'ஒரு காலத்துல… இந்த வீடு முழுக்க சிரிப்பு சத்தம் தான்.',
+    english: 'Once… this whole house was full of laughter.',
+  },
+  {
     file: 'audio/vo/03_son_amma.mp3',
-    from: 376,
+    from: 556,
     length: 47,
     volume: 1,
     speaker: 'Son (Muthu)',
@@ -48,7 +57,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/04_deepavali.mp3',
-    from: 418,
+    from: 598,
     length: 44,
     volume: 1.1,
     speaker: 'Narrator (Vennila)',
@@ -57,7 +66,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/05_same_kitchen.mp3',
-    from: 657,
+    from: 837,
     length: 104,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -66,7 +75,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/06_slept_on_floor.mp3',
-    from: 864,
+    from: 1044,
     length: 114,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -75,7 +84,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/07_mothers_cook_for_you.mp3',
-    from: 1062,
+    from: 1242,
     length: 114,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -84,7 +93,7 @@ export const VOICE: VoiceLine[] = [
   },
   {
     file: 'audio/vo/08_happy_deepavali.mp3',
-    from: 1170,
+    from: 1350,
     length: 246,
     volume: 1,
     speaker: 'Narrator (Vennila)',
@@ -93,7 +102,15 @@ export const VOICE: VoiceLine[] = [
   },
 ];
 
-export type BedCue = {file: string; from: number; envelope: Envelope; duck?: boolean; label: string};
+export type BedCue = {
+  file: string;
+  from: number;
+  envelope: Envelope;
+  duck?: boolean;
+  label: string;
+  /** Skip this many frames at the start of the file. */
+  trimBefore?: number;
+};
 
 /** Score: three South Indian cues that follow the story's mood. */
 export const MUSIC: BedCue[] = [
@@ -101,21 +118,44 @@ export const MUSIC: BedCue[] = [
     label: 'A - lonely veena + tanpura (scenes 1-3)',
     file: 'audio/music/a_lonely_veena.mp3',
     from: 0,
-    // dips just before the doorbell so the ding-dong lands in silence
+    // fades as she drifts into the memory
     envelope: [
       [0, 0],
       [20, 0.95],
-      [316, 0.95],
-      [332, 0.2],
-      [370, 0.2],
-      [386, 0],
+      [276, 0.95],
+      [312, 0],
+    ],
+    duck: true,
+  },
+  {
+    label: 'memory - festive cue, muffled like a distant memory (scene 3b)',
+    file: 'audio/music/memory_festive_muffled.mp3',
+    from: 290,
+    envelope: [
+      [0, 0],
+      [18, 0.85],
+      [150, 0.85],
+      [190, 0],
+    ],
+    duck: true,
+  },
+  {
+    label: 'A (tail) - veena returns for the tears, silent before the doorbell (scene 3c)',
+    file: 'audio/music/a_lonely_veena.mp3',
+    from: 446,
+    trimBefore: 165,
+    envelope: [
+      [0, 0],
+      [14, 0.9],
+      [48, 0.9],
+      [62, 0],
     ],
     duck: true,
   },
   {
     label: 'B - festive nadaswaram + thavil (door opens → eating together)',
     file: 'audio/music/b_festive_nadaswaram.mp3',
-    from: 369,
+    from: 549,
     envelope: [
       [0, 0],
       [8, 0.58],
@@ -127,7 +167,7 @@ export const MUSIC: BedCue[] = [
   {
     label: 'C - tender flute + veena (bed, floor, end card)',
     file: 'audio/music/c_tender_flute.mp3',
-    from: 780,
+    from: 960,
     envelope: [
       [0, 0],
       [30, 0.46],
@@ -144,15 +184,36 @@ export const SFX: BedCue[] = [
     from: 0,
     envelope: [
       [0, 0.35],
-      [330, 0.35],
-      [380, 0],
+      [286, 0.35],
+      [316, 0],
     ],
   },
-  {label: 'doorbell', file: 'audio/sfx/doorbell.mp3', from: 330, envelope: [[0, 0.9]]},
+  {
+    label: 'memory: sparklers, flowerpot whoosh, family laughing',
+    file: 'audio/sfx/memory_sparklers_laughter.mp3',
+    from: 318,
+    envelope: [
+      [0, 0.9],
+      [130, 0.9],
+      [160, 0],
+    ],
+  },
+  {
+    label: 'quiet night returns for the tears',
+    file: 'audio/sfx/night_clock_crickets.mp3',
+    from: 440,
+    envelope: [
+      [0, 0],
+      [20, 0.35],
+      [70, 0.35],
+      [100, 0],
+    ],
+  },
+  {label: 'doorbell', file: 'audio/sfx/doorbell.mp3', from: 510, envelope: [[0, 0.9]]},
   {
     label: 'distant Diwali crackers',
     file: 'audio/sfx/distant_crackers.mp3',
-    from: 400,
+    from: 580,
     envelope: [
       [0, 0],
       [30, 0.28],

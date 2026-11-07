@@ -2,12 +2,10 @@ import React from 'react';
 import {CHARACTERS} from '../theme';
 import {blink as autoBlink, breath} from '../lib/anim';
 import {Arm, ArmLook} from '../rig/Arm';
-import {Brow, Eye, Mouth} from '../rig/Face';
+import {Brow, Eye, Mouth, RollingTear} from '../rig/Face';
 import type {CharacterProps} from './types';
 
-const C = CHARACTERS.mom;
-
-const ARM: ArmLook = {
+const armLook = (C: typeof CHARACTERS.mom): ArmLook => ({
   l1: 100,
   l2: 92,
   w1: 27,
@@ -19,7 +17,9 @@ const ARM: ArmLook = {
   sleeve: C.blouse,
   sleeveShade: C.sareeShade,
   sleeveLen: 0.42,
-};
+});
+const ARM_NOW = armLook(CHARACTERS.mom);
+const ARM_YOUNG = armLook(CHARACTERS.momYoung);
 
 export const MOM_SHOULDER_L = {x: -62, y: -405};
 export const MOM_SHOULDER_R = {x: 62, y: -405};
@@ -33,10 +33,15 @@ const SEAT_DROP = {stand: 0, lie: 0, sit: 110, kneel: 190} as const;
 
 /**
  * Mom: ~55-year-old widow in a white/grey saree, grey hair in a bun, small bindi.
+ * `young` draws her as she was ~25 years ago (flashback): black hair with jasmine,
+ * green silk saree, red blouse, red bindi, no age lines.
  * Rig groups: lower-body, upper-body (torso), head (eyes, brows, mouth), arm-left,
  * arm-right (upper-arm → forearm → hand).
  */
-export const Mom: React.FC<CharacterProps> = (p) => {
+export const Mom: React.FC<CharacterProps & {young?: boolean}> = (p) => {
+  const young = p.young ?? false;
+  const C = young ? CHARACTERS.momYoung : CHARACTERS.mom;
+  const ARM = young ? ARM_YOUNG : ARM_NOW;
   const armsOnly = p.layer === 'arms';
   const {frame: f, seed = 1, scale = 1, pose = 'stand', face = {}} = p;
   const b = breath(f, seed) * (p.breathe ?? 1);
@@ -132,6 +137,11 @@ export const Mom: React.FC<CharacterProps> = (p) => {
             fill="none"
             opacity={0.7}
           />
+          {young &&
+            Array.from({length: 9}).map((_, i) => {
+              const a = (-200 + i * 22) * (Math.PI / 180);
+              return <circle key={i} cx={44 - fx * 0.3 + Math.cos(a) * 29} cy={-556 + Math.sin(a) * 29} r={5} fill="#fbf8ef" />;
+            })}
           <ellipse cx={0} cy={-512} rx={59} ry={62} fill={C.hair} />
         </g>
 
@@ -195,6 +205,7 @@ export const Mom: React.FC<CharacterProps> = (p) => {
             <Eye x={21} y={-504} {...eyeArgs} />
             {/* soft age lines under the eyes */}
             <path
+              display={young ? 'none' : undefined}
               d="M -29 -491 Q -21 -487 -13 -491 M 13 -491 Q 21 -487 29 -491"
               stroke={C.skinShade}
               strokeWidth={1.8}
@@ -204,7 +215,7 @@ export const Mom: React.FC<CharacterProps> = (p) => {
             />
             <Brow x={-21} y={-524} w={20} side={-1} raise={face.brow ?? 0} sad={face.sad ?? 0} color={C.hairLight} thick={3.6} />
             <Brow x={21} y={-524} w={20} side={1} raise={face.brow ?? 0} sad={face.sad ?? 0} color={C.hairLight} thick={3.6} />
-            <circle cx={0} cy={-530} r={3.4} fill={C.bindi} />
+            <circle cx={0} cy={-530} r={young ? 4.6 : 3.4} fill={C.bindi} />
             <path
               d={`M ${-2 + turn * 3} -497 Q ${2 + turn * 4} -482 ${6 + turn * 2} -479`}
               stroke={C.skinShade}
@@ -213,6 +224,7 @@ export const Mom: React.FC<CharacterProps> = (p) => {
               strokeLinecap="round"
             />
             <path
+              display={young ? 'none' : undefined}
               d="M -17 -478 Q -20 -468 -15 -460 M 17 -478 Q 20 -468 15 -460"
               stroke={C.skinShade}
               strokeWidth={1.6}
@@ -221,6 +233,8 @@ export const Mom: React.FC<CharacterProps> = (p) => {
               strokeLinecap="round"
             />
             <Mouth x={0} y={-463} w={11} smile={face.smile ?? 0} open={face.open ?? 0} color={C.mouth} tongue={C.tongue} />
+            <RollingTear from={{x: -29, y: -500}} to={{x: -44, y: -458}} t={face.tearDrop ?? 0} />
+            <RollingTear from={{x: 29, y: -500}} to={{x: 42, y: -460}} t={face.tearDrop2 ?? 0} />
           </g>
         </g>
 

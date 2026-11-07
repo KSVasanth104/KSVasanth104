@@ -14,8 +14,8 @@ const MOM = {x: 250, y: 1780, scale: 1.32};
 
 export const Scene4: React.FC = () => {
   const f = useSceneFrame();
-  const {palette: p, warmth} = useMood();
-  const frame = f + 330;
+  const {palette: p, warmth, globalFrame} = useMood();
+  const frame = globalFrame;
 
   const ring = keys(f, [0, 26], [0, 1]);
   const turn = keys(f, [4, 16], [0, 0.6]);

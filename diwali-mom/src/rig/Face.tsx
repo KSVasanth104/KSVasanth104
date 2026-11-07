@@ -24,6 +24,34 @@ export type FacePose = {
   noBlink?: boolean;
   /** Teary shine 0..1. */
   tears?: number;
+  /** A tear rolling down from the left / right eye, progress 0..1 (0 = none). */
+  tearDrop?: number;
+  tearDrop2?: number;
+};
+
+/** A single tear rolling from the outer corner of an eye down the cheek. */
+export const RollingTear: React.FC<{from: Pt; to: Pt; t: number}> = ({from, to, t}) => {
+  if (t <= 0) return null;
+  const k = Math.min(1, t);
+  // ease: hangs at the lash line first, then runs
+  const e = k < 0.25 ? k * 0.4 : 0.1 + ((k - 0.25) / 0.75) ** 1.4 * 0.9;
+  const x = from.x + (to.x - from.x) * e;
+  const y = from.y + (to.y - from.y) * e;
+  const fade = t > 1 ? Math.max(0, 1 - (t - 1) * 3) : 1;
+  return (
+    <g className="tear" opacity={fade}>
+      <path
+        d={`M ${from.x} ${from.y} Q ${(from.x + x) / 2 - 2} ${(from.y + y) / 2} ${x} ${y}`}
+        stroke="#d8efff"
+        strokeWidth={2.6}
+        strokeLinecap="round"
+        fill="none"
+        opacity={0.75}
+      />
+      <path d={`M ${x} ${y - 5.5} Q ${x + 3.6} ${y} ${x} ${y + 3.6} Q ${x - 3.6} ${y} ${x} ${y - 5.5} Z`} fill="#e9f7ff" opacity={0.95} />
+      <circle cx={x - 1} cy={y - 0.5} r={1} fill="#ffffff" />
+    </g>
+  );
 };
 
 const safeId = (id: string) => id.replace(/[^a-zA-Z0-9_-]/g, '');

@@ -88,8 +88,8 @@ const UnrollMat: React.FC<{l: number; frame: number; p: Palette}> = ({l, frame, 
 
 export const Scene7: React.FC = () => {
   const f = useSceneFrame();
-  const {palette: p} = useMood();
-  const frame = f + 780;
+  const {palette: p, globalFrame} = useMood();
+  const frame = globalFrame;
   const settle = pop(f, 125, 18, 90);
   return (
     <>

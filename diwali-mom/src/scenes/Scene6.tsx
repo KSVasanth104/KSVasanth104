@@ -17,7 +17,7 @@ const FEAST_DONE = [1, 1, 1, 1, 1, 1, 1, 1];
 export const Scene6: React.FC = () => {
   const f = useSceneFrame();
   const {palette: p, globalFrame} = useMood();
-  const frame = f + 630;
+  const frame = globalFrame;
 
   // son: lift the puri, bite, chew, beam, then look at Mom
   const lift = keys(f, [8, 30, 44, 64], [0, 1, 1, 0]);

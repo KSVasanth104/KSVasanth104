@@ -72,8 +72,8 @@ export const TopDownNight: React.FC<{
 
 export const Scene8: React.FC = () => {
   const f = useSceneFrame();
-  const {palette: p} = useMood();
-  const frame = f + 960;
+  const {palette: p, globalFrame} = useMood();
+  const frame = globalFrame;
 
   const c = keys(f, [0, 125], [0, 1]);
   const camera: CameraState = {
