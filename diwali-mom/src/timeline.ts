@@ -43,5 +43,19 @@ export const CAPTIONS: CaptionCue[] = [
   {text: 'Diwali.', start: 384, end: 446, size: 150},
   {text: 'Same kitchen.', accent: 'Different taste.', start: 652, end: 772},
   {text: 'She slept\non the floor.', accent: 'And smiled.', start: 858, end: 956},
-  {text: "Mothers don't cook\nfor taste.", accent: 'They cook for you.', start: 1062, end: 1140},
+  {text: "Mothers don't cook\nfor taste.", accent: 'They cook for you.', start: 1062, end: 1150},
 ];
+
+/**
+ * Closing card after the film (38-42 s): a diya lights up, then the greeting and a
+ * line that calls back to the doorbell in scene 4. `reveal` frames are relative
+ * to the card's start.
+ */
+export const END_CARD = {
+  start: 1140,
+  end: 1260,
+  greeting: 'Happy Diwali',
+  line1: 'Go home this year.',
+  line2: 'Someone has been\nwaiting by the door.',
+  reveal: {greeting: 16, line1: 44, line2: 64},
+};

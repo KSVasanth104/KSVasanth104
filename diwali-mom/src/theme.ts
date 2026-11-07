@@ -14,7 +14,7 @@ export const VIDEO = {
   width: 1080,
   height: 1920,
   fps: 30,
-  durationInFrames: 1140, // 38 s
+  durationInFrames: 1260, // 42 s: 38 s story + 4 s Happy Diwali end card
 } as const;
 
 export const COLD = {

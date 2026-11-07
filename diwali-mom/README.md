@@ -1,7 +1,8 @@
 # Diwali Mom
 
-A 38-second vertical (1080x1920, 30 fps) animated short built with [Remotion](https://www.remotion.dev/)
-and hand-built SVG characters. The finished render is at `out/diwali-mom.mp4`.
+A 42-second vertical (1080x1920, 30 fps) animated short built with [Remotion](https://www.remotion.dev/)
+and hand-built SVG characters: a 38 s story plus a 4 s "Happy Diwali" end card.
+The finished render is at `out/diwali-mom.mp4`.
 
 ## Preview and render
 
@@ -42,7 +43,7 @@ src/
     Arm.tsx           upper-arm → forearm → hand groups with 2-bone IK (or explicit elbow)
     Face.tsx          eyes (blink, look, squint, sparkle, tears), brows, morphing mouth
     HandProp.tsx      spoon, ladle, puri, laddoo
-  components/         Camera/Stage, Diya (flickering flame + glow), Atmosphere, Captions
+  components/         Camera/Stage, Diya (flickering flame + glow), Atmosphere, Captions, EndCard
   sets/               DiningRoom, BedroomTopDown, Doorway, Kitchen, BedroomFront, Props
   scenes/             Scene1.tsx … Scene8.tsx (one component per scene)
 ```
@@ -84,3 +85,4 @@ The render is silent on purpose (music goes on in CapCut). To bake a track in, p
 | 6 | 21–26 s | 630–779 | Eating together. *"Same kitchen. Different taste."* |
 | 7 | 26–32 s | 780–959 | She makes the bed for him, unrolls a mat, lies down. *"She slept on the floor. And smiled."* |
 | 8 | 32–38 s | 960–1139 | Pull-back to the son asleep in her bed, fade to black. *"Mothers don't cook for taste. They cook for you."* |
+| End | 38–42 s | 1140–1259 | A diya lights in the dark. **Happy Diwali** · *"Go home this year. Someone has been waiting by the door."* (edit in `END_CARD`, `timeline.ts`) |

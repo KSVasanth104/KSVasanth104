@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Audio, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, continueRender, delayRender, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {loadFont} from '@remotion/fonts';
 import {FONT_FAMILY, mixPalette, VIDEO} from './theme';
-import {BLACKOUT, CAPTIONS, SCENES, WARM_SWITCH} from './timeline';
+import {BLACKOUT, CAPTIONS, END_CARD, SCENES, WARM_SWITCH} from './timeline';
 import {MUSIC_FILE, MUSIC_VOLUME} from './audio';
 import {MoodProvider, SceneSlot} from './lib/context';
 import {keys} from './lib/anim';
 import {Captions} from './components/Captions';
+import {EndCard} from './components/EndCard';
 import {Dust, GradeOverlay, Grain, Vignette, gradeFilter} from './components/Atmosphere';
 import {Scene1} from './scenes/Scene1';
 import {Scene2} from './scenes/Scene2';
@@ -74,6 +75,11 @@ export const DiwaliMom: React.FC = () => {
 
         {/* ----- end fade, then text on top ----- */}
         <AbsoluteFill style={{backgroundColor: '#000', opacity: black}} />
+        {frame >= END_CARD.start && (
+          <Sequence name="End card - Happy Diwali" from={END_CARD.start} durationInFrames={END_CARD.end - END_CARD.start}>
+            <EndCard f={frame - END_CARD.start} />
+          </Sequence>
+        )}
         <Captions cues={CAPTIONS} frame={frame} warmth={warmth} />
 
         {/* ----- placeholder audio slot (see src/audio.ts) ----- */}
