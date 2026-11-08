@@ -16,3 +16,9 @@ Each idea: **hardship → deity (form) → what Raghu must do himself → moral 
 | 10 | **Exam Fail** | Raghu fails maths and hides the report card | Ganesha (mouse Mooshika leads him) | Shows Appa and asks for help | Failure is the first step, not the last | A modak |
 | 11 | **Monsoon Flood** | Rain floods the house; their things are ruined | Shiva / Ganga (old man at the ghat) | Helps neighbours before himself | In storms, be someone's shelter | Crescent-moon reflection in the water |
 | 12 | **Vikram's Secret** | Raghu discovers the bully is beaten at home | Durga + Hanuman | Befriends Vikram and tells Paati, who helps | Hurt people hurt people; kindness heals | Lion paw print in mud |
+
+## Festival specials (mythology stories told by Paati)
+
+| # | Title | Festival | Story | Hook | Moral | Sign left behind | Status |
+|---|---|---|---|---|---|---|---|
+| SP01 | **The Demon's Last Wish** | Diwali (Naraka Chaturdashi) | Krishna & Satyabhama vs Narakasura | "Why do we light lamps on Diwali? A demon asked for it." | No darkness is so deep that one small lamp cannot end it | A peacock feather | Rough cut in `episodes/sp01_diwali/` |
